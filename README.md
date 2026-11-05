@@ -1,516 +1,794 @@
-# VeloPad PC Client — User Manual
+# VeloPad PC Client · User Manual (2.0.0)
 
-This document is the complete user manual and reference for the VeloPad PC Client. It covers downloading and installing the PC and Android apps, connecting your phone over Wi-Fi or USB, using every control, dial, slider, and graph in the Input Lab, configuring Xbox 360 vs. DualShock 4 emulation, enabling Analog WASD Macro-Slicing for Mouse-and-Keyboard games, and dialing in settings for different game genres.
+The VeloPad PC client is the Windows half of VeloPad. It receives your phone's touches and motion over Wi-Fi or USB and turns them into a virtual **Xbox 360** or **DualShock 4** controller, or into mouse and keyboard input, so any PC game can be played from the VeloPad Android app.
+
+This manual covers every page, dial, slider, switch and setting in **VeloPad 2.0.0** for Windows. It's written for **VeloPad 3.0.0** on Android; some features need that phone version, and they're marked where they appear.
 
 ---
 
 ## Table of Contents
 
-1. [Download, Installation & Launching](#download-installation--launching)
-2. [Main Window Layout](#main-window-layout)
-3. [Dashboard Page](#dashboard-page)
-4. [Profiles Page & Layout Editor](#profiles-page--layout-editor)
-5. [Input Lab Page — Overview](#input-lab-page--overview)
-6. [The Four Tuning Knobs](#the-four-tuning-knobs)
-   - [Smoothing](#smoothing)
-   - [Deadzone](#deadzone)
-   - [Response](#response)
-   - [Sensitivity](#sensitivity)
-7. [Controller Target & Gyro Target Stick](#controller-target--gyro-target-stick)
-   - [Xbox 360 vs. DualShock 4 (Native Gyro + Haptics)](#xbox-360-vs-dualshock-4-native-gyro--haptics)
-   - [Gyro Target Stick (Right vs. Left Stick)](#gyro-target-stick-right-vs-left-stick)
-8. [Gyro Behavior Modes](#gyro-behavior-modes)
-   - [Mode 0: Rate -> Stick (Decay)](#mode-0-rate---stick-decay)
-   - [Mode 1: Rate -> Stick (Snap)](#mode-1-rate---stick-snap)
-   - [Mode 2: Rate -> Mouse](#mode-2-rate---mouse)
-   - [Mode 3: Angle -> Stick (Tilt)](#mode-3-angle---stick-tilt)
-9. [Axis Mapping](#axis-mapping)
-10. [Mode 3 Exclusive Controls (2-Axis Tilt Configuration)](#mode-3-exclusive-controls-2-axis-tilt-configuration)
-    - [Orientation & Tilt Axes](#orientation--tilt-axes)
-    - [Set Neutral Level & Recenter on Stick Touch](#set-neutral-level--recenter-on-stick-touch)
-    - [Recenter Speed](#recenter-speed)
-    - [Max Tilt Angle](#max-tilt-angle)
-11. [Response Curve Editor](#response-curve-editor)
-12. [Analog WASD Macro-Slicing (MnK Mode)](#analog-wasd-macro-slicing-mnk-mode)
-13. [Settings Page](#settings-page)
-14. [System Tray](#system-tray)
-15. [Signal Processing Pipeline — Technical Reference](#signal-processing-pipeline--technical-reference)
-16. [Recommended Settings by Game Genre](#recommended-settings-by-game-genre)
+1. [Installing VeloPad](#installing-velopad)
+2. [Connecting Your Phone](#connecting-your-phone)
+3. [The Main Window](#the-main-window)
+4. [Dashboard](#dashboard)
+5. [Profiles](#profiles)
+6. [Layout Editor](#layout-editor)
+7. [Input Lab: Overview](#input-lab-overview)
+8. [Tuning Dials](#tuning-dials)
+9. [Virtual Controller](#virtual-controller)
+10. [Gyro Behaviour Modes](#gyro-behaviour-modes)
+11. [Tilt Setup (Mode 3)](#tilt-setup-mode-3)
+12. [Touchpad to Joystick Camera](#touchpad-to-joystick-camera)
+13. [Response Curve](#response-curve)
+14. [Axis Mapping](#axis-mapping)
+15. [Analog WASD Slicing](#analog-wasd-slicing)
+16. [Presets (Pro)](#presets-pro)
+17. [Settings](#settings)
+18. [Free vs Pro](#free-vs-pro)
+19. [Files VeloPad Keeps](#files-velopad-keeps)
+20. [Signal Processing Reference](#signal-processing-reference)
+21. [Recommended Settings by Genre](#recommended-settings-by-genre)
+22. [Troubleshooting](#troubleshooting)
 
 ---
 
-## Download, Installation & Launching
+## Installing VeloPad
 
-### Step 1: Download & Install the PC Client
+### What you need
 
-1. Visit the official **[VeloPad Releases page on GitHub](https://github.com/Blue-Wave-Horizon/velopad-releases/releases)**.
-2. Under the latest release, download the Windows installer (**`VeloPad_Setup_vX.Y.Z.exe`**).
-3. Run the downloaded installer and follow the on-screen setup wizard:
-   - The installer automatically sets up **VeloPad** along with the required **ViGEmBus** virtual controller driver and bundled ADB tools for USB connections.
-   - If Windows SmartScreen or User Account Control (UAC) prompts you, click **More info -> Run anyway** / **Yes** to allow installation (Administrator privileges are required for low-level game input injection).
-4. Launch **VeloPad** using the Desktop shortcut or from the Windows Start Menu.
+- A **Windows 10 or 11** PC (64-bit) where you can approve administrator prompts.
+- An **Android phone** (Android 8.0 or newer, with a gyroscope) running **VeloPad 3.0** or newer.
+- The phone and PC on the **same Wi-Fi network** (or the PC on the phone's hotspot), or a USB data cable for USB play (Pro).
 
-### Step 2: Download & Install the Android App
+### Step 1: Install the PC client
 
-1. On your Android phone, open the **[VeloPad listing on Google Play Store](https://play.google.com/store/apps/details?id=com.bwh.velopad)**.
-2. Tap **Install** to download and install the app on your device.
-3. Open VeloPad on your phone, select **Wi-Fi/Hotspot** (same network as your PC) or **USB Cable** (Pro, with USB Debugging enabled), tap your discovered PC server, and tap the **Play** button to launch the controller HUD.
+1. Open the [VeloPad releases page](https://github.com/Blue-Wave-Horizon/velopad-releases/releases) and download the **VeloPad_Installer** `.exe` from the latest release.
+2. Run it. If Windows SmartScreen appears, click **More info > Run anyway**; approve the **User Account Control** prompt.
+3. Follow the wizard. It installs VeloPad, installs the **ViGEmBus** virtual controller driver if you don't already have it, and can add a desktop shortcut.
+4. VeloPad starts when setup finishes. After that, open it from the Start menu or desktop.
 
-### Startup & Firewall Notes
+VeloPad asks for administrator rights each time it starts. It needs them to add its firewall rules and to send input to games reliably.
 
-When VeloPad starts on your PC, it immediately listens for phone connections on UDP port `4000`, TCP port `4001`, broadcasts discovery beacons on port `4002`, and runs profile sync on TCP port `4003`. If Windows Defender Firewall prompts you on first launch, allow VeloPad through on both **Private** and **Public** networks.
+### Step 2: Install the phone app
 
-On launch, the window opens to the **Dashboard** page. Closing the window minimizes VeloPad to the Windows system tray instead of quitting so your controller stays active in-game. To exit completely, right-click the VeloPad tray icon and select **Quit**.
+Install **VeloPad** from [Google Play](https://play.google.com/store/apps/details?id=com.bwh.velopad). You can also click **Get the Android app** on VeloPad's Dashboard and scan the QR code with your phone's camera.
 
----
+### Step 3: First launch
 
-## Main Window Layout
+1. On first start, VeloPad adds Windows Firewall rules for **Private** networks. Make sure your network is set to **Private** in Windows (Settings > Network & internet > your Wi-Fi or Ethernet network > *Network profile type*). Phones can't connect over a **Public** network.
+2. Open VeloPad on your phone, pick your PC on the **Home** tab, and tap **Play**. See [Connecting Your Phone](#connecting-your-phone).
 
-The window is divided into two areas:
+### Optional: ADB for USB play (Pro)
 
-- **Left Sidebar (`200 px`, collapsible to `56 px`)**: Contains four navigation buttons (**Dashboard**, **Profiles**, **Input Lab**, and **Settings**) and a **Connected Devices** list showing each active phone with a green status dot and a disconnect button. Click the top chevron arrow to collapse the sidebar into icon-only mode.
-- **Content Area (Right)**: Displays the active page (**Dashboard**, **Profiles**, **Input Lab**, **Settings**, or the interactive **Layout Editor** when editing a profile).
+USB play needs Google's free **ADB** tool, which isn't included with VeloPad.
 
----
+1. Download **SDK Platform-Tools for Windows** from [developer.android.com/tools/releases/platform-tools](https://developer.android.com/tools/releases/platform-tools).
+2. Unzip it so that `adb.exe` is at `C:\platform-tools\adb.exe`. VeloPad also finds `adb` on your PATH or in an Android Studio install (`%LOCALAPPDATA%\Android\Sdk\platform-tools\`).
+3. Restart VeloPad.
 
-## Dashboard Page
+### Optional: Interception driver
 
-The Dashboard is split into two side-by-side panels: **Player 1** (left) and **Player 2** (right). Each player slot has its own virtual controller and independent telemetry.
+For games that ignore normal software keyboard and mouse input, VeloPad can use the Interception driver. It's optional and isn't installed by default; see [Keyboard &amp; mouse injection](#keyboard--mouse-injection) before installing it, because some anti-cheat systems block it.
 
-### Stat Cards (2×2 Grid per Player)
+### Updating
 
-- **Connection** (top-left): Displays `"Connected"` (green border) or `"Disconnected"` (red border), along with transport type and device model (for example, `"USB — Pixel 8 Pro"` or `"Wi-Fi — 192.168.0.15"`).
-- **Active Profile** (top-right): Displays the profile currently active on the phone and its mapped widget count.
-- **Latency** (bottom-left): Shows the smoothed inter-packet interval (`90%` previous estimate + `10%` latest interval) in milliseconds with a quality badge:
-  - **Green (`Good`)**: `< 5 ms`
-  - **Amber (`OK`)**: `5–15 ms`
-  - **Red (`Warn`)**: `> 15 ms`
-- **Input Mode** (bottom-right): Displays `"Gamepad"` or `"MnK Mode"`.
+VeloPad checks for updates every time it starts. When one is available, click **Download update**, download the new installer from the release page, and run it over your current version. Your settings, presets and layouts are kept.
 
-### Latency Graph
+### Uninstalling
 
-Below the stat cards, a live scrolling graph plots the last 60 latency samples color-coded by the same green/amber/red thresholds, with horizontal reference grid lines at `5 ms`, `15 ms`, and `25 ms`.
+Uninstall **VeloPad** from Windows Settings > Apps. Your settings and layouts stay in `%APPDATA%\VeloPad` in case you reinstall; delete that folder to remove them. The ViGEmBus driver is listed separately in Apps and can be removed if no other program uses it.
 
 ---
 
-## Profiles Page & Layout Editor
+## Connecting Your Phone
 
-The **Profiles** page manages `.vpd` controller layouts stored in **`%APPDATA%\VeloPad\profiles\`** (seeded automatically with bundled starter profiles on first launch). All profile sync and upload features are **free for all users**.
+Keep VeloPad running on the PC, open VeloPad on the phone, and pick this PC from the phone's **Home** tab. The phone app's own manual has the phone-side steps in detail.
 
-### Profile List & Top Bar Actions
+### Wi-Fi or hotspot
 
-- **+ New Profile**: Creates a new blank `.vpd` layout file.
-- **Sync Remote Profiles**: Queries the connected phone over TCP port `4003` (`0xFE`) for its profile list and automatically downloads every remote profile (`0xFF`) into `%APPDATA%\VeloPad\profiles\`.
-- Each item in the list shows a two-letter avatar, profile name, widget count, and status badge (`active` in green if currently loaded on the phone, or `on phone` in accent color).
+1. Put the phone and PC on the **same network**, or connect the PC to the phone's hotspot. A 5 GHz network gives the steadiest ping.
+2. On the phone, choose **Wi-Fi / Hotspot**. The PC appears under its **discovery name** (your Windows computer name unless you change it in [Settings](#network--discovery)). Tap **Link**.
+3. If the PC doesn't show up, type the PC's **LAN address** into the phone's *Or enter an address* field. The address is shown on the Dashboard's empty player card.
 
-### Detail Panel & Layout Editor
+How discovery works: every 2 seconds the PC broadcasts its name on UDP port 4002, to the whole network and directly to each network's gateway address, so phone hotspots that drop broadcasts still see it. Input then arrives on UDP port 4000.
 
-Selecting a profile shows a visual preview of its layout and three actions:
+### USB (Pro on the phone)
 
-- **Edit Layout**: Opens the interactive **Layout Editor** page where you can add, drag, resize, and inspect all six widget types (**Key Button**, **D-PAD**, **Joystick**, **Touchpad**, **Trackpad (DS4)**, and **Gyro Toggle**) on a `2520 × 1080` phone canvas, including live key/button capture and shape selection (`CIRCLE`, `SQUARE`, `RECTANGLE`).
-- **Upload to phone**: Pushes the `.vpd` JSON to the connected phone (`0xFD`) and automatically activates it on the phone's HUD (`0xFC`).
-- **Delete**: Deletes the local `.vpd` file (the `Default` profile is protected).
+USB gives a steady cable link with no Wi-Fi spikes. It's a VeloPad Pro feature on the phone.
 
----
+1. Install Google's **ADB** tools on the PC (see the installation section). VeloPad looks for `adb` on the PATH, in `%LOCALAPPDATA%\Android\Sdk\platform-tools\` and in `C:\platform-tools\`.
+2. On the phone, turn on **USB debugging** (Settings > About phone > tap *Build number* seven times, then Developer options > USB debugging).
+3. Plug the phone in with a **data** cable and tap **Allow** on the phone's *Allow USB debugging?* prompt.
+4. On the phone, choose **USB / ADB** and link to the PC shown as *USB · cable*.
 
-## Input Lab Page — Overview
+VeloPad sets up the ADB tunnels itself and checks them every 3 seconds, so replugging the cable, restarting ADB or opening Android Studio doesn't break the link. Only phones on a cable are used: wireless ADB and emulators are ignored. If several phones are plugged in, the first one is used.
 
-The **Input Lab** is VeloPad's real-time signal processing studio. Every dial, curve, controller target, and mode in the Input Lab is **100% unlocked for both Free and Pro users**.
+With VeloPad 3.0 on the phone, USB also carries **rumble** and the **ping** measurement through a "live link" that VeloPad keeps open to the phone.
 
-When a phone connects, a device tab appears (e.g., `P1  USB — OnePlus 12`). Settings are saved per physical phone using its persistent hardware `ANDROID_ID` in `%APPDATA%\VeloPad\config.vpd` and are restored automatically whenever that phone reconnects.
+> USB is steadier, not dramatically faster: it runs through ADB, so its main benefit is consistency.
 
-### View Filter Bar
+### Two players
 
-At the top of each device tab is a segmented filter bar:
-- **All Controls**: Shows all tuning cards side by side.
-- **Gamepad**: Shows only Gamepad-relevant cards (`Controller Target`, `Gyro Target Stick`, Stick gyro modes, and S-Curve).
-- **MnK**: Shows only Mouse-and-Keyboard cards (`Rate -> Mouse` notice, S-Curve, and `Analog WASD Macro-Slicing`).
+Up to **two phones** can connect at once, as **P1** and **P2**. Each gets its own virtual controller, its own Dashboard card and its own Input Lab settings, so two people can play local co-op.
 
----
+- **Keyboard keys and mouse buttons** come from **P1 only**. P2 drives its own virtual controller. Gyro and touchpad mouse movement work from either phone.
+- A phone that sends nothing for **5 seconds** is disconnected, and its held inputs are released.
+- When both slots are full, a slot that has been silent for 3 seconds is handed to a new phone.
 
-## The Four Tuning Knobs
+### Firewall and network type
 
-Located at the top of the Device Lab Panel, the four `68 × 68 px` circular dials take effect on the very next packet. Click and drag vertically (`100 px` drag spans the full range). From left to right:
+On every start, VeloPad creates or refreshes three Windows Firewall rules (*VeloPad Discovery Beacon*, *VeloPad Receiver UDP*, *VeloPad Receiver TCP*) for **Private** networks. It uses UDP 4000 and 4002 and TCP 4001 to 4003; the ports are fixed.
 
----
-
-### Smoothing
-
-- **Range**: `0.00` to `1.00`
-- **Default**: `0.68`
-- **Subtitle**: *filter strength*
-
-Smoothing applies an exponential moving average (EMA) low-pass filter to the gyro signal after the deadzone to eliminate hand tremor and sensor noise.
-
-**How it works internally**: The dial controls **Filter Strength** (`0.00` = raw unfiltered input, `1.00` = maximum dampening). Internally, VeloPad converts Filter Strength to the EMA pass-through coefficient $\alpha$:
-
-```
-alpha = max(0.05, 1.0 - (smoothing * 0.95))
-smoothed = smoothed + (raw - smoothed) * alpha
-```
-
-- At **`0.00`**: $\alpha = 1.00$ (zero filtering, instant raw sensor output).
-- At **`0.68` (default)**: $\alpha \approx 0.354$ (fluid, stable tracking with minimal latency).
-- At **`1.00`**: $\alpha = 0.05$ (heavy dampening for maximum steadiness).
-
-In **Mode 3 (Tilt)**, smoothing is asymmetric: when returning toward center, $\alpha$ is boosted by `1.5×` (capped at `1.0`) so steering straightens out immediately.
+- Your Wi-Fi must be set to **Private** in Windows (Settings > Network & internet > your network > *Network profile type*). On a **Public** network the rules don't apply and phones can't connect.
+- Only phones on private (local network) addresses or USB are accepted.
 
 ---
 
-### Deadzone
+## The Main Window
 
-- **Range**: `0.00` to `0.20`
-- **Default**: `0.12`
-- **Subtitle**: *input threshold*
+### Sidebar
 
-Defines the rotation threshold below which gyro input is treated as zero, preventing camera drift when holding the phone still.
+| Part                                               | What it does                                                                                                                                                                                        |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **VeloPad · Mission Control**               | Brand header                                                                                                                                                                                        |
+| **Dashboard, Profiles, Input Lab, Settings** | The four pages. Press **1**, **2**, **3** or **4** anywhere in the window to jump to them                                                                                   |
+| **Collapse / expand**                        | Shrinks the sidebar to icons (64 px) or expands it (240 px)                                                                                                                                         |
+| **Connected devices**                        | Each phone with its P1/P2 badge, connection type, live ping (coloured dot) and a **✕** to disconnect it. With exactly one phone, a battery bar shows too. With none: *Waiting for a phone* |
+| **Receiver on &lt;name&gt;**                 | The name phones see for this PC                                                                                                                                                                     |
 
-- **In Modes 0 & 2**: Raw rates with $|val| < \text{deadzone}$ are set to `0.0`, while the EMA smoothing buffer decays naturally to zero.
-- **In Mode 1 (Snap)**: When $|val| < \text{deadzone}$, both the raw value **and** the smoothing buffer are immediately zeroed for an instant stop.
-- **In Mode 3 (Tilt)**: Applied radially to the 2D tilt magnitude $\text{rad\_mag} = \text{hypot}(\text{angle\_x}, \text{angle\_y})$ with smooth rescaling:
-  ```
-  rescaled = (rad_mag - deadzone) / (1.0 - deadzone)
-  ```
+The window's minimum size is 1040 × 680 (default 1280 × 820), and VeloPad remembers its size and position. On Windows 11, the title bar is tinted to match the sidebar.
 
----
+### Closing, the tray, and quitting
 
-### Response
-
-- **Range**: `0.50x` to `3.00x`
-- **Default**: `1.00x`
-- **Subtitle**: *output multiplier*
-
-A final linear gain multiplier applied after the response curve and sensitivity scaling (`0.50x` halves final output; `2.00x` doubles it). Keep at `1.00x` unless you want to boost or attenuate overall output without altering your curve shape.
+- The window's **close (✕)** button **hides VeloPad to the system tray**. It keeps running so your controller stays live in game. The first time, a notice says *VeloPad is still running*.
+- **Tray icon:** animated chevrons with a red dot while searching; a still icon with a green dot when a phone is connected. Hover for *VeloPad: Searching...* or *VeloPad: Connected (&lt;names&gt;)*.
+- **Tray menu:** **Show VeloPad**, **Hide to Tray**, **Quit**. Double-click the icon to show or hide the window.
+- **Quit** from the tray is the only way to exit fully. It releases all virtual controllers.
+- Starting VeloPad again while it's running replaces the old copy.
 
 ---
 
-### Sensitivity
+## Dashboard
 
-- **Range**: `0` to `100`
-- **Default**: `90`
-- **Subtitle**: *base multiplier*
+*Live telemetry for every phone talking to this PC.*
 
-Controls how much stick deflection or mouse movement is produced for a given rotation rate:
+The header shows **N of 2 players connected** (or *Waiting for phones*), a **virtual controller(s) active** count when two phones are in Gamepad mode, and a **What's new** button.
 
-- **Modes 0 & 1 (Rate -> Stick)**: Multiplies the normalized 2D curved vector `[0..1]` by `32767 * (sensitivity / 100.0) * response`.
-- **Mode 2 (Rate -> Mouse) & MnK Gyro**: Multiplies the curved gyro rate by `(sensitivity / 2.0) * response * dt_scale`.
-- **Mode 3 (Angle -> Stick)**: Sensitivity is bypassed because stick deflection is mapped directly from your physical tilt angle relative to **Max Tilt °**.
+With one phone, its card is wide and an empty slot card sits beside it. With two phones, the cards share the width.
 
----
+### Player card
 
-## Controller Target & Gyro Target Stick
+**Header:** the P1/P2 badge, the phone's name, its link (*USB · ADB over TCP 4001* or *Wi-Fi · UDP 4000 · &lt;ip&gt;*), a **Pro** pill if that phone has VeloPad Pro, a **Connected** pill and a **✕** to disconnect.
 
-### Xbox 360 vs. DualShock 4 (Native Gyro + Haptics)
+**Stat cells:**
 
-The **CONTROLLER TARGET** card (visible in `All Controls` and `Gamepad` views) selects which virtual controller VeloPad creates via ViGEmBus:
+| Cell                     | What it shows                                                                                                                                                                                                                                                                                                     |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Latency**        | The real **round trip** from phone to PC and back, in ms, measured by the phone. Pill: **Good · under 15 ms** (green), **OK · 15–40 ms** (amber), **High · 40 ms+** (red). Shows *Measuring…* at first, and *Needs VeloPad 3.0 on the phone* if an older phone app sends no ping |
+| **Active profile** | The layout the phone is using right now, with *N widgets mapped* if this PC has a copy, or *Not on this PC*                                                                                                                                                                                                   |
+| **Input mode**     | **Gamepad**, with the controller and gyro mode (for example *Xbox 360 · Right stick · Decay*, *… · Gyro → mouse*, or *DualShock 4 · Native gyro*), or **MnK**, with the input method chosen in Settings (*Smart Auto*, *SendInput* or *Interception*)                               |
+| **Packet rate**    | Packets per second (Hz), averaged over about a second. Footer: **Gap** (the smoothed time between packets, a measure of steadiness rather than latency) and the phone's **Battery** (and *charging*). Free phones below 400 Hz show a **Pro: every 2 ms** hint                                |
 
-1. **Xbox 360 (`x360`, Default)**:
-   - Emulates a standard XInput Xbox 360 gamepad (`X360Output`).
-   - Works out-of-the-box with virtually every PC game.
-   - Captures XInput motor vibration callbacks and streams `RUMBLE:<large>:<small>\n` packets back to your phone over UDP port `4002` at up to 30 Hz.
-2. **DualShock 4 (Native Gyro + Haptics) (`ds4`)**:
-   - Emulates a Sony DualShock 4 controller (`DS4Output`) using custom 64-byte extended HID reports (`DS4ReportEx` via `vigem_target_ds4_update_ex`).
-   - **Native 6-Axis Motion Streaming**: Embeds raw gyroscope (`deg/s`) and accelerometer (`g`) sensor data directly inside the DS4 HID report. Games with native DS4 motion support and **Steam Input** can read your phone's gyro directly as a native PlayStation motion controller.
-   - **Native DS4 Trackpad & Buttons**: Supports the Android **Trackpad** widget's `1920 × 940` capacitive touch coordinates, **Touchpad Click**, and the **Guide (PS)** button, plus full force-feedback rumble to your phone.
+**Ping graph:** *Ping · last 60 seconds*, one point per second.
 
-### Gyro Target Stick (Right vs. Left Stick)
+- Dashed guide lines at **15 ms** and **40 ms**; the scale always shows at least 0 to 50 ms.
+- A faint dashed second line plots **packet gap**.
+- The line takes the colour of the average's band. The right side shows **avg / p95 / max**.
+- **Reset graph** clears it (wide card only).
 
-When **Xbox 360** is selected, the **GYRO TARGET STICK** sub-panel lets you choose which analog stick receives gyro output in Modes 0, 1, and 3:
+**Tips** (Wi-Fi only):
 
-- **Right Stick (Aim / Camera)** *(Default)*: Routes gyro output to the Right Analog Stick (`RX`, `RY`). Ideal for first-person and third-person shooters.
-- **Left Stick (Movement / Steering)**: Routes gyro output to the Left Analog Stick (`LX`, `LY`). Ideal for racing games (Mode 3 tilt steering), flight sims, or vehicle control.
+- If the worst ping is 40 ms or more and at least 2.5 × the average: *Wi-Fi spiked to N ms · USB stays steady*.
+- Otherwise, if ping isn't in the green band: *Tip: 5 GHz Wi-Fi or USB brings this down*.
 
----
+**Buttons:** **Tune in Input Lab** opens Input Lab on this phone. **Switch profile** opens the Profiles page.
 
-## Gyro Behavior Modes
+**Disconnect (✕):** releases held inputs, unplugs the virtual controller, saves that phone's Input Lab settings and frees the slot. If the phone is still streaming, it reconnects straight away, so ✕ works as a **reset**. To stop a phone, exit play on the phone.
 
-All four gyro behavior modes are available to all users.
+### Empty slot card
 
----
-
-### Mode 0: Rate -> Stick (Decay)
-
-- **Output**: Selected **Gyro Target Stick** (`Right Stick` by default, or `Left Stick`)
-- **Best for**: Gamepad shooters with aim assist, third-person action games
-
-Translates angular velocity (`rad/s`) into analog stick deflection using **omnidirectional 2D radial curve mapping** (`max_speed = 1.0 rad/s`). When you stop rotating the phone, the EMA smoothing buffer remains intact and gently decays back to center, producing smooth, natural camera stops.
+- *Connect your phone* (no phones yet) or *Add a second phone* (local co-op gets its own virtual controller).
+- **Discovery name**, **LAN address** (type this into the phone if discovery fails) and **Ports** (4000–4003).
+- **Get the Android app** opens a pop-up with a **QR code**. Scan it with the phone's camera to open VeloPad on Google Play. **Open in browser** opens the same page on the PC; **Done** closes it.
 
 ---
 
-### Mode 1: Rate -> Stick (Snap)
+## Profiles
 
-- **Output**: Selected **Gyro Target Stick** (`Right Stick` by default, or `Left Stick`)
-- **Best for**: Fast-paced twitch shooters, flick aiming
+*Controller layouts stored on this PC and on your phone.* Layouts are kept in `%APPDATA%\VeloPad\profiles\`, one `.vpd` file each.
 
-Identical to Mode 0, except when rotation speed drops below the **Deadzone**, both the raw rate **and** the EMA smoothing buffer are immediately zeroed. The stick snaps back to `(0, 0)` the exact millisecond you stop rotating, eliminating any trailing camera movement after a fast flick.
+### The list
+
+- **Search** by name, and filter **All / On phone / This PC only**.
+- Layouts are grouped into **On your phone** and **This PC only**, with the phone's active layout first. "On phone" means it was in the last sync from the phone, or it's the layout the phone is using now.
+- **Default** is protected and can't be deleted (lock icon).
+
+### The detail panel
+
+- Name, status (*Active on &lt;phone&gt;* or *On phone*) and *N widgets · Gamepad/MnK · Edited &lt;time&gt;*.
+- **Layout preview** at the phone's 2520 × 1080 landscape canvas. Hover a widget to see what it is.
+- **Duplicate** makes *&lt;name&gt; copy* (then *copy 2*…).
+- **Edit layout** opens the [Layout Editor](#layout-editor).
+- **Upload to phone** (Pro) sends the layout to the phone and switches the phone to it.
+- **Widgets** tile: a count per widget type.
+- **Where it lives**: *Loaded on &lt;phone&gt; right now*, *Saved on your phone and this PC*, or *Only on this PC*.
+- **Danger zone · Delete profile** removes it from this PC after you confirm. A copy on the phone isn't affected.
+
+### Header buttons
+
+- **New profile** asks for a name and opens the editor. If that name already exists, the existing profile opens.
+- **Sync from phone** (Pro) downloads **every** layout from the phone. A phone layout **replaces** a PC layout with the same name.
+
+Sync and upload need a connected phone; they use the first connected phone (P1 first). Pro is checked on that phone.
 
 ---
 
-### Mode 2: Rate -> Mouse
+## Layout Editor
 
-- **Output**: System mouse cursor (`Win32 SendInput` or `Interception` driver)
-- **Best for**: Mouse-and-keyboard FPS games (CS2, Valorant, Apex Legends, Overwatch 2), desktop navigation
+Design and fine-tune phone layouts with a mouse and keyboard. The sidebar collapses while you edit and comes back when you leave.
 
-Translates angular velocity directly into relative mouse pixel movement (`max_speed = 4.0 rad/s`), compensated by frame delta-time (`dt_scale = dt_ms / 8.0`) so sensitivity stays constant across `125 Hz`, `250 Hz`, and `500 Hz` polling rates. Fractional sub-pixel remainders are accumulated across frames so slow, single-pixel micro-adjustments are never lost to rounding.
+### Header and toolbar
 
-*(Note: When the phone HUD is switched to **MnK Mode**, VeloPad automatically uses this mouse pipeline regardless of the Gamepad mode dropdown.)*
+| Control                       | What it does                                                                                                                  |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **← Back to profiles** | Leaves the editor. With unsaved changes you're asked to **Save**, **Keep editing** or **Discard**           |
+| **Status**              | *● Unsaved changes*, *✓ Saved* or *✓ Saved and sent to phone*                                                        |
+| **Undo / Redo**         | Up to 100 steps. Quick edits to the same field within a second count as one step                                              |
+| **Add widget**          | Key button, Joystick, D-pad, Touchpad, Trackpad or Gyro toggle                                                                |
+| **Save**                | Saves to this PC (Ctrl+S)                                                                                                     |
+| **Save & upload** (Pro) | Saves, sends the layout to the phone and switches the phone to it. With no phone connected, it saves and tells you to connect |
+| **Profile mode**        | **Gamepad** or **Mouse & keyboard** for the whole layout                                                          |
+| **Snap to grid**        | On by default                                                                                                                 |
+
+### Canvas
+
+- The canvas is the phone's **2520 × 1080** landscape screen.
+- **Drag** a widget to move it. It snaps to a **20-unit grid** and lines up with other widgets' edges and centres (pink guide lines). Hold **Alt** to place freely.
+- **Drag a corner** to resize (also snapped). Round and square widgets stay square.
+- **Arrow keys** nudge 4 units; **Shift + arrow** nudges 40. **Esc** deselects.
+- New widgets appear in the centre, stepping down and right if that spot is taken.
+
+### Keyboard shortcuts
+
+| Keys             | Action    |
+| ---------------- | --------- |
+| Ctrl+Z           | Undo      |
+| Ctrl+Y           | Redo      |
+| Ctrl+D           | Duplicate |
+| Del or Backspace | Delete    |
+| Ctrl+S           | Save      |
+
+### Widget list
+
+A searchable list (*Find by name or key…*) of every widget with its type, key and size. A **PRO** tag marks Pro options in use; **⚠** marks a key that needs fixing. Click a row to select the widget.
+
+A layout holds up to **128 widgets**.
+
+### Widget settings (inspector)
+
+Every widget has a **Name** (up to 24 characters). Sizes are in canvas units.
+
+| Widget      | Size range                     | New-widget size |
+| ----------- | ------------------------------ | --------------- |
+| Key button  | 40–600                        | 120             |
+| Joystick    | 40–600                        | 260             |
+| D-pad       | 40–600                        | 220             |
+| Touchpad    | 40–1500 wide, up to 1080 high | 700 × 400      |
+| Trackpad    | 40–1500 wide, up to 1080 high | 700 × 350      |
+| Gyro toggle | 40–300                        | 140             |
+
+**Key button**
+
+| Option                        | Values                                                                                                     | Default                     |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------- |
+| **Shape**               | Circle · Square · Rectangle · Triangle (only Rectangle has separate width and height)                   | Square                      |
+| **Behaviour**           | Tap · Hold · Toggle                                                                                      | Hold                        |
+| **Minimum hold** (Hold) | 50–1000 ms                                                                                                | 200 ms                      |
+| **Sends**               | Keyboard & mouse · Gamepad                                                                                | Keyboard & mouse, key *A* |
+| **Combo** (Pro)         | up to 3 extra keys, each **after 0–500 ms** (steps of 10) or **Random** (0–500 ms each time) | none                        |
+
+- **Tap** sends a quick press per touch. **Hold** presses while held, and for at least the minimum hold. **Toggle** presses on one tap and releases on the next.
+- Switching **Sends** resets the key and clears combos. **Change…** opens the key picker.
+- On Free, existing combos still show and can be edited, but new keys can't be added, and the phone doesn't fire combos.
+
+**Joystick**
+
+| Option                                                  | Values                                                                        | Default     |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------- |
+| **Placement**                                     | Fixed · Follow (appears wherever your thumb lands on its half of the screen) | Fixed       |
+| **Output**                                        | Left stick · Right stick · WASD                                             | Left stick  |
+| **Actuation** (WASD)                              | 1–100%                                                                       | 50%         |
+| **Diagonals** (WASD)                              | on / off (press two keys between directions)                                  | on          |
+| **Forward cone / Back cone** (WASD, diagonals on) | 15–60°                                                                      | 30° / 30° |
+| **Smoothing** (WASD)                              | 5–50%                                                                        | 20%         |
+| **Auto-sprint lock** (Pro)                        | on / off                                                                      | off         |
+| **Sprint key**                                    | gamepad button for Left stick, keyboard key otherwise                         |             |
+| **Starts at / Locks at**                          | 50–100% / 50–100%                                                           | 80% / 95%   |
+| **Invert X / Invert Y**                           | on / off                                                                      | off         |
+
+Auto-sprint holds the sprint key once you push the stick forward past *Starts at*, and locks forward with sprint held if you let go beyond *Locks at*. Tap or drag the stick on the phone to unlock.
+
+**D-pad:** **Sends** WASD keys or the controller D-pad.
+
+**Touchpad**
+
+| Option                        | Values                     | Default |
+| ----------------------------- | -------------------------- | ------- |
+| **Output**              | Mouse · Right stick (Pro) | Mouse   |
+| **Sensitivity**         | 0.1–10.0×                | 1.0×   |
+| **Invert X / Invert Y** | on / off                   | off     |
+
+*Mouse* moves the mouse, which controls the camera in most PC games. *Right stick* suits games that ignore the mouse while a controller is active, and is tuned in Input Lab's [Touchpad to joystick camera](#touchpad-to-joystick-camera) card.
+
+**Trackpad** (a PlayStation-style touchpad; use it with the **DualShock 4** controller in Input Lab)
+
+| Option                                                                                           | Default    |
+| ------------------------------------------------------------------------------------------------ | ---------- |
+| **Tap to click**                                                                           | on         |
+| **Split left / right click** (left half clicks Share/Back, right half clicks the touchpad) | off        |
+| **Aim with gyro while touching**                                                           | off        |
+| Sensitivity 0.1–10.0×, Invert X / Y                                                            | 1.0×, off |
+
+The trackpad sends finger **positions**, so sensitivity and invert don't change its output.
+
+**Gyro toggle**
+
+| Option                     | Values                                                                    | Default       |
+| -------------------------- | ------------------------------------------------------------------------- | ------------- |
+| **Shape**            | Square · Circle                                                          | Square        |
+| **When is gyro on?** | **Tap to toggle** · **While held** (pick the trigger widget) | Tap to toggle |
+
+*While held* is **scope mode**: you aim with the phone only while you hold that button, for example your aim-down-sights trigger. Deleting a widget clears any gyro toggle that used it as its trigger.
+
+### Key picker
+
+Shows only keys the phone can send. In keyboard mode, click the **capture pad** and press a real key or click a mouse button to pick it.
+
+| Category                              | Keys                                                              |
+| ------------------------------------- | ----------------------------------------------------------------- |
+| Letters                               | A–Z                                                              |
+| Numbers                               | 0–9                                                              |
+| Special                               | Space, Enter, Shift, Ctrl, Alt, Tab, Esc                          |
+| F-keys                                | F1–F12                                                           |
+| Arrows                                | Arrow up, Arrow down, Arrow left, Arrow right                     |
+| Mouse (Mouse & keyboard layouts only) | Left, Right, Middle, Side 1, Side 2                               |
+| Gamepad: face                         | A (Cross), B (Circle), X (Square), Y (Triangle)                   |
+| Gamepad: bumpers and triggers         | LB, RB, LT, RT                                                    |
+| Gamepad: D-pad                        | Up, Down, Left, Right                                             |
+| Gamepad: system                       | Start (Options), Back (Share), Guide (PS), L3, R3, Touchpad click |
+
+- **Mouse buttons need a Mouse & keyboard layout.** The Mouse category is hidden in Gamepad layouts, because the PC only clicks the mouse for MnK layouts.
+- **Arrow Up / Arrow Down:** layouts made with phone apps before 3.0 pressed **F11 / F12** for these. Re-pick the arrow to fix it. Capturing ↑ or ↓ gives the correct key.
+- The picker flags problem keys with ⚠, such as Mouse side 3/4 (*The PC doesn't press this mouse button yet*) or an old code that sends a controller button instead of a key.
 
 ---
 
-### Mode 3: Angle -> Stick (Tilt)
+## Input Lab: Overview
 
-- **Output**: Selected **Gyro Target Stick** (`Right Stick` or `Left Stick`)
-- **Best for**: Racing games (steering wheel), flight simulators, 2-axis analog tilt games
+*Per-phone gyro tuning. Every change applies on the next packet and is remembered for this phone.*
 
-Tracks the phone's **physical tilt angle** rather than rotation speed using **Pure 2-Axis Gyroscope Integration** (the same approach used by Steam Input for DualSense/Steam Deck gyro-to-joystick-deflection). Because it integrates pure angular velocity without accelerometer gravity fusion, fast hand movements and lateral G-forces never cause sudden steering kicks.
+Everything in Input Lab is **free**, except presets.
+
+| Part                               | What it does                                                                                                                                                                                                                                                            |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Device switcher**          | P1 and P2 tiles with the phone's name and **USB** or **Wi-Fi**. Pick which phone you're tuning                                                                                                                                                              |
+| **View filter**              | **All controls · Gamepad · Mouse & keyboard**. *Gamepad* hides Analog WASD slicing. *Mouse & keyboard* hides Virtual controller and Touchpad to joystick camera, and replaces the gyro mode tiles with a note that in MnK mode gyro always drives the mouse |
+| **Reset to defaults**        | Resets every Input Lab setting for the selected phone, after you confirm                                                                                                                                                                                                |
+| **Presets / Save as preset** | Pro. See [Presets](#presets-pro)                                                                                                                                                                                                                                         |
+
+The page has two columns: **Tuning**, **Virtual controller**, **Gyro behaviour** and **Touchpad to joystick camera** on the left; **Response curve**, **Axis mapping** and **Analog WASD slicing** on the right. They stack in a narrow window.
+
+### Using the dials
+
+- **Drag up or down**: 100 px covers the whole range.
+- **Mouse wheel** or **arrow keys**: 1/50 of the range per step.
+- **Double-click** to type an exact value.
+- Sliders show the default value as a small grey mark.
+
+### How settings are remembered
+
+- Settings belong to **each phone**, identified by its Android ID, so renaming the phone keeps them.
+- They're also kept **per connection type**: the same phone has one set over **USB** and another over **Wi-Fi**. Use a preset (Pro) to copy tuning between them.
+- Changes apply live. They're written to disk when the phone **disconnects**, when you **close the window** and when you **quit**.
+
+---
+
+## Tuning Dials
+
+The **Tuning** card has four dials that affect gyro in every mode.
+
+| Dial                                           | Range        | Default | What it does                                                                           |
+| ---------------------------------------------- | ------------ | ------- | -------------------------------------------------------------------------------------- |
+| **Smoothing** · *steadies shaky aim*  | 0.00–1.00   | 0.68    | Filters out hand tremor and sensor noise. 0 is raw and instant; 1.00 is heaviest       |
+| **Deadzone** · *ignores tiny shakes*  | 0.00–0.20   | 0.12    | Rotation slower than this is ignored, so the camera doesn't drift while you hold still |
+| **Response** · *extra speed boost*    | 0.50–3.00× | 1.00×  | A final multiplier on top of sensitivity                                               |
+| **Sensitivity** · *camera turn speed* | 0–100       | 90      | How far the stick or mouse moves for a given rotation speed                            |
+
+**Smoothing in detail.** VeloPad blends each new reading with the last one: `alpha = max(0.05, 1 − 0.95 × smoothing)`, then `smoothed += (raw − smoothed) × alpha`. At 0, alpha is 1 (no filtering). At the default 0.68, alpha is about 0.35. At 1.00, alpha is 0.05. In Tilt mode, smoothing applies to the stick output and is 1.5× faster when returning toward centre, so steering straightens quickly.
+
+**Deadzone in detail.** The value is in radians per second: 0.20 rad/s is about 11.5° per second. In Snap mode, dropping under the deadzone also stops the stick instantly. In Tilt mode the deadzone works differently: it's a circle around centre, as a fraction of Max tilt, and output is rescaled above it so there's no jump.
+
+**Sensitivity in detail.**
+
+- **Stick modes (0, 1):** full stick = 32767 × sensitivity/100 × response, reached when the curve's output is 1.0.
+- **Mouse (mode 2 and MnK):** pixels per packet = curved rate × sensitivity × 0.5 × response, scaled by the time since the last packet so speed stays the same at 125, 250 and 500 Hz.
+- **DualShock 4:** gyro × sensitivity/90 × response, so the default 90 passes motion through 1:1.
+- **Tilt (mode 3):** sensitivity and response aren't used; stick deflection comes from your tilt angle versus **Max tilt**.
+
+---
+
+## Virtual Controller
+
+*Gamepad mode only.* Picks the virtual controller this phone becomes.
+
+| Controller                          | Best for                                              | Details                                                                                                                                                                                                                                                                                                                                                                                    |
+| ----------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Xbox 360** (XInput)         | Virtually every PC game                               | Gyro is folded into a stick (or the mouse). Rumble goes back to the phone. The phone's **Touchpad click** is sent as **Back**. Trackpad touches are ignored                                                                                                                                                                                                                    |
+| **DualShock 4** (native gyro) | Steam Input and games with PlayStation motion support | The phone's gyro and accelerometer go into the controller's own **motion sensors**, so the game or Steam Input does the gyro aiming. The **Trackpad** widget drives the DS4 touchpad surface, **Touchpad click** is the touchpad button and **Guide** is the PS button. The phone's battery level shows as the controller's battery. Rumble goes back to the phone |
+
+**What still applies with DualShock 4:** deadzone, smoothing, axis mapping and inversion, the response curve, sensitivity and response. **What doesn't:** the gyro modes and gyro target stick (the page hides them), because the motion goes straight to the controller's sensors.
+
+Switching swaps the virtual controller instantly. If a DualShock 4 can't be created, VeloPad falls back to Xbox 360. The virtual controller appears when the phone sends its first Gamepad-mode input and is **removed** when the phone switches its layout to Mouse & keyboard, so games stop seeing it.
+
+### Gyro target stick
+
+*Xbox 360 only.* **Right · Aim** (default) or **Left · Steer**: which stick receives gyro in modes 0, 1 and 3.
+
+- **Right** is for camera and crosshair aiming.
+- **Left** is for steering, vehicles or southpaw setups.
+
+Gyro is **added** to whatever that stick on the phone is already doing, then limited to the stick's range.
+
+---
+
+## Gyro Behaviour Modes
+
+The card header says where gyro goes: *Output goes to Right stick / Left stick / the mouse / the DS4 motion sensors*.
+
+| # | Mode                                       | Feel                                                                                                                | Good for                                                   |
+| - | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| 0 | **Rate → Stick · Decay** (default) | Stick deflection follows how fast you turn. When you stop, the camera glides to a stop                              | Gamepad shooters with aim assist; a good default           |
+| 1 | **Rate → Stick · Snap**            | Same as Decay, but the stick returns to centre the instant you stop                                                 | Twitch shooters, flick aiming                              |
+| 2 | **Rate → Mouse**                    | Gyro moves the Windows mouse; the sticks still work as normal. Stop moving and the camera stays exactly where it is | Games that take mouse and controller together, desktop use |
+| 3 | **Angle → Stick · Tilt**           | The phone's **angle** becomes stick deflection. Hold an angle and the stick stays held                        | Racing, flight sims                                        |
+
+- **Modes 0 and 1** treat the yaw and pitch speeds as one 2D movement, so diagonals keep their direction. **1 rad/s** (about 57° per second) is full input to the curve.
+- **Mode 2** works per axis with **4 rad/s** as full input to the curve. Fractions of a pixel carry over to the next packet, so slow aiming isn't lost.
+- **Mode 3** builds the angle from the gyroscope alone (not the accelerometer), so bumps and fast sideways movement don't kick the steering. Very slow drift under 0.015 rad/s is ignored.
+- In a **Mouse & keyboard** layout, gyro always moves the mouse, whatever mode is picked here.
+
+---
+
+## Tilt Setup (Mode 3)
+
+Shown when **Angle → Stick · Tilt** is selected with Xbox 360.
+
+| Control                                         | Values                                                                | Default  | What it does                                                                                                                                                                         |
+| ----------------------------------------------- | --------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Set neutral level**                     | button                                                                |          | Makes the phone's current position the centre (0, 0). Hold the phone how you'll play, then click it                                                                                  |
+| **Orientation**                           | Portrait · Landscape                                                 | Portrait | How you hold the phone. In 2.0.0, changing it re-zeroes the tilt but doesn't change which axes are read; use [Axis mapping](#axis-mapping) for that                                   |
+| **Tilt axes**                             | Both (2-Axis) · Horizontal Only (Steer X) · Vertical Only (Pitch Y) | Both     | Limit tilt to steering only, pitch only, or full 360°                                                                                                                               |
+| **Recenter when I touch the stick**       | on / off                                                              | on       | Touching the phone's stick on the gyro side (past about 6%) re-centres the tilt to your current position. For the right stick, putting a finger on a right-stick touchpad counts too |
+| **Recenter speed** · *0.0 = hold tilt* | 0.0–3.0×                                                            | 0.0      | 0 holds your tilt indefinitely, like a steering wheel held through a long bend. Above 0, after 0.4 s of holding still, the tilt eases back to centre at roughly that rate per second |
+| **Max tilt** · *full lock angle*       | 10–90°                                                              | 45°     | How far you tilt for full stick. 25–35° is quick and arcade-like; 60–90° is fine and sim-like                                                                                    |
+
+Changing the gyro mode, orientation or tilt axes also re-zeroes the tilt. Smoothing and Deadzone apply in Tilt mode; Sensitivity and Response don't.
+
+---
+
+## Touchpad to Joystick Camera
+
+*Makes swiping on a Right-Stick touchpad feel like mobile touch aiming, and stops the camera the instant you lift your finger. Works with both Xbox 360 and DualShock 4.*
+
+This card only affects a **Touchpad** widget whose **Output** is **Right stick** (a Pro option on the phone). A touchpad set to **Mouse** isn't affected.
+
+### How it behaves
+
+- Your **swipe speed** becomes right-stick deflection. A swipe of **14 px per 8 ms** (at sensitivity 1.0) is full stick.
+- **Lift your finger** and the stick snaps to centre immediately, so the camera stops dead.
+- **Rest your finger** without moving and the stick holds for a moment (about 22–65 ms), then fades out over about 45 ms.
+- **Fast swipes** reach full speed almost at once.
+- The result is **added** to the phone's right stick and to any gyro on the right stick.
+
+### The four dials
+
+| Dial                                                | Range        | Default | What it does                                                                                                                                                                                                                                                          | Turn it up when…                                                                          |
+| --------------------------------------------------- | ------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **Touch sens** · *swipe speed*             | 0.20–4.00× | 1.20×  | Multiplies swipe speed before anything else. Higher turns faster for the same swipe                                                                                                                                                                                   | The camera feels slow and you run out of screen                                            |
+| **Anti-deadzone** · *small movement boost* | 0.00–0.40   | 0.16    | The smallest stick output any real swipe produces: `output = anti-deadzone + (1 − anti-deadzone) × curved`. It jumps over the game's own stick deadzone so tiny swipes still move the camera. It fades in gently for very slow movement, so stopping stays smooth | Small swipes do nothing in game. Turn it down if the camera lurches when you start a swipe |
+| **Vertical scale** · *up/down speed*       | 0.50–2.50× | 1.35×  | Multiplies only up/down movement. Many games turn slower vertically; this evens it out                                                                                                                                                                                | Looking up and down feels sluggish compared with left and right                            |
+| **Curve gamma** · *fine aim control*       | 1.00–3.00   | 1.65    | Shapes speed into output: `output = speed ^ gamma`. 1.00 is linear. Higher values make slow drags gentler for precise aim while fast flicks still reach full speed                                                                                                  | You overshoot small adjustments. Turn it down if slow tracking feels sticky                |
+
+**Tuning tip:** set the game's own stick sensitivity first, then raise **Anti-deadzone** until the smallest swipe just moves the camera, then adjust **Touch sens** for turn speed, **Vertical scale** for balance, and **Curve gamma** last for fine aim.
+
+---
+
+## Response Curve
+
+Shapes how gyro feels at different speeds. Drag the handles up to make slow movement punchier, or down to soften it.
+
+- A curve from (0, 0) to (1, 1) with two handles, **P1 · precision** (default **0.25, 0.10**) and **P2 · acceleration** (default **0.75, 0.90**). The default is an S-curve: slow movement is reduced for steadiness, the middle is boosted, and the top end reaches full output.
+- Handles can go anywhere from 0 to 1 on both axes. **Reset** restores the defaults.
+- Raising **P1** works like an anti-deadzone for the stick: slow movement gets past the game's stick deadzone sooner.
+- What the curve's horizontal axis means depends on the mode:
+
+| Mode                                | Input that equals 1.0        |
+| ----------------------------------- | ---------------------------- |
+| Rate → Stick (0, 1)                | 1 rad/s of combined rotation |
+| Rate → Mouse (2), MnK, DualShock 4 | 4 rad/s on each axis         |
+| Tilt (3)                            | Max tilt                     |
+
+The curve doesn't affect the Touchpad to joystick camera, which has its own gamma.
 
 ---
 
 ## Axis Mapping
 
-Below the Gyro Mode selector are two columns for mapping physical phone axes:
+Applies to every gyro mode, including DualShock 4 and Tilt.
 
-- **Yaw (Left/Right)**:
-  - **Yaw Axis**: `Y` (default), `X`, or `Z`.
-  - **Invert X (Yaw)**: Reverses horizontal direction (unchecked by default).
-- **Pitch (Up/Down)**:
-  - **Pitch Axis**: `X` (default), `Y`, or `Z`.
-  - **Invert Y (Pitch)**: Reverses vertical direction (unchecked by default so tilting forward looks down and tilting backward looks up consistently across both Gamepad and MnK modes).
+| Control                       | Values      | Default | What it does                                  |
+| ----------------------------- | ----------- | ------- | --------------------------------------------- |
+| **Yaw · left / right** | Y · X · Z | Y       | Which phone axis turning left and right reads |
+| **Pitch · up / down**  | X · Y · Z | X       | Which phone axis looking up and down reads    |
+| **Invert yaw**          | on / off    | off     | Reverses left-right camera panning            |
+| **Invert pitch**        | on / off    | off     | Reverses up-down camera movement              |
 
----
-
-## Mode 3 Exclusive Controls (2-Axis Tilt Configuration)
-
-Selecting **Mode 3: Angle -> Stick (Tilt)** reveals the **Mode 3 — 2-Axis Tilt Configuration** panel:
-
-### Orientation & Tilt Axes
-
-- **Orientation**:
-  - **Portrait** *(Default)*: Standard upright phone grip (`Yaw = Y`, `Pitch = X`).
-  - **Landscape**: Sideways steering-wheel grip (automatically maps horizontal steering to `Y` and vertical pitch to `X` if left on defaults).
-- **Tilt Axes (`tilt_axes`)**:
-  - **Both (2-Axis)** *(Default)*: Outputs full 360° 2-axis tilt `(tilt_x, tilt_y)` to the target stick.
-  - **Horizontal Only (Steer X)**: Locks vertical tilt output to `0`, outputting only left/right steering on the X-axis (ideal for racing games where you don't want accidental forward/back pitch affecting camera or menus).
-  - **Vertical Only (Pitch Y)**: Locks horizontal tilt output to `0`, outputting only forward/backward pitch on the Y-axis.
-
-### Set Neutral Level & Recenter on Stick Touch
-
-- **Set Neutral Level (Button)**: Immediately calibrates your phone's current physical angle as `(0, 0)` neutral center. Hold your phone in a comfortable resting posture and click this button (or tap the assigned thumbstick on your phone).
-- **Recenter on Stick Touch (Checkbox, Default On)**: Whenever your thumb touches the target on-screen joystick (`hypot > 2000`) or touchpad, VeloPad immediately resets the integrated tilt angle to `(0, 0)`. This lets you effortlessly re-center your steering or camera mid-game just by tapping the thumbstick.
-
-### Recenter Speed
-
-- **Range**: `0.0x` to `3.0x`
-- **Default**: `0.0` (*Hold Tilt*)
-
-Controls what happens when you hold the phone stationary (angular velocity `< 0.015 rad/s` for more than `400 ms`):
-- **`0.0` (Default — Hold Tilt)**: The stick holds your exact tilt angle indefinitely, just like holding a real steering wheel through a long corner.
-- **`> 0.0` (`0.1x–3.0x`)**: Gently decays the integrated angle back toward center at `angle *= max(0, 1 - recenter_speed * dt)` while the phone is held still.
-
-### Max Tilt Angle
-
-- **Range**: `10°` to `90°`
-- **Default**: `45°`
-
-Defines the physical tilt angle (in degrees from neutral) that produces `100%` (`32767`) stick deflection. Use `25°–35°` for quick arcade steering, `45°` for balanced control, or `60°–90°` for high-precision simulation racing/flight.
+The phone already adjusts its axes for how it's held and for its YAW or ROLL gyro setting, so the defaults suit most people. Change these if the camera moves on the wrong axis.
 
 ---
 
-## Response Curve Editor
+## Analog WASD Slicing
 
-The **RESPONSE CURVE** card displays an interactive cubic Bezier **S-Curve** editor (`SCurveGraph`) with two draggable control points:
+*Mouse & keyboard only.* Makes your on-screen joystick feel like a real 360° thumbstick even in keyboard (WASD) games, such as games that don't allow a controller and mouse at the same time. You walk and run smoothly in any direction without losing sprint speed.
 
-- **Control Point 1 (Lower-Left)**: Defaults to `(0.25, 0.10)`. Controls precision for slow, fine movements. Dragging P1 down dampens micro-rotations for rock-steady aiming.
-- **Control Point 2 (Upper-Right)**: Defaults to `(0.75, 0.90)`. Controls acceleration for fast flicks.
+**Use it with:** a **Mouse & keyboard** layout with a **Joystick** set to **Left stick**. Slicing reads the left stick and presses W, A, S and D for you.
 
-VeloPad pre-computes the Bezier curve at 5,000 samples and builds a 1,000-point lookup table (`LUT`) per device session for zero-overhead per-packet evaluation.
+| Control                        | Range       | Default | What it does                                                                                                               |
+| ------------------------------ | ----------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Enable** (card toggle) | on / off    | off     | Turns slicing on. The sliders are disabled while it's off                                                                  |
+| **Cycle window**         | 100–350 ms | 180 ms  | Length of each pulse cycle. Lower is tighter steering; higher is smoother sprinting                                        |
+| **Angle deadband**       | 0–22°     | 5°     | Within this many degrees of straight or exactly diagonal, keys are held solid instead of pulsed, so you run in clean lines |
 
----
+How it works:
 
-## Analog WASD Macro-Slicing (MnK Mode)
-
-Visible in the `All Controls` and `MnK` views of the Input Lab, **ANALOG WASD MACRO-SLICING** solves one of PC gaming's biggest input problems: many competitive shooters (such as *Apex Legends*) disable gamepad sticks or cancel sprint momentum when simultaneous controller + mouse input is detected.
-
-When **Enable Analog WASD Macro-Slicing** is checked (and the phone is in **MnK Mode** with a Joystick mapped to **Left stick**):
-
-1. VeloPad intercepts the phone's 360° analog left-stick coordinates `(lx, ly)` before they reach the virtual gamepad.
-2. A dedicated 125 Hz (`8 ms`) high-precision timer (`WASDSlicer`) decomposes the stick's polar angle and magnitude into a primary cardinal key (e.g., `W`) and a secondary orthogonal key (e.g., `D`) with trigonometric duty cycles (`ratio_a = cos(offset)`, `ratio_b = sin(offset)`).
-3. Over each slicing cycle window, VeloPad pulses `W`, `A`, `S`, and `D` at the exact duty ratios matching your thumb's angle and push distance—giving you smooth 360° directional movement and analog walk-to-run speed control using 100% pure keyboard output.
-4. **Full-Speed Forward Lock**: When pushing within `35°` of straight forward (`W`) at `> 85%` stick deflection, the primary `W` key is locked at `100%` duty cycle (`1.0`) so your character never drops out of full sprint while steering left or right with `A`/`D` pulses.
-
-### WASD Macro-Slicing Controls
-
-- **Enable Analog WASD Macro-Slicing**: Master toggle (default `Off`).
-- **Slicing Cycle Window (ms)**: Slider from `100 ms` to `350 ms` (default `180 ms`). Shorter windows (`120–160 ms`) feel tighter and more responsive; longer windows (`200–300 ms`) produce gentler character inertia.
-- **Angle Deadband (°)**: Slider from `0°` to `22°` (default `5°`). Snaps angles within `±deadband°` of `0°`, `90°`, `180°`, or `270°` to pure single-key cardinal movement so you can run straight down narrow corridors without cross-axis pulsing.
+- Below **15%** stick deflection, no keys are pressed.
+- The stick's angle picks a direction. The **main key** for that direction is held all the time, so the game never breaks your sprint.
+- The **second key** is pulsed for part of each cycle, in proportion to how far you're angled toward the diagonal. That gives smooth steering between the eight directions.
+- Near straight ahead (within the deadband) only the main key is held; near a diagonal, both keys are held.
+- While slicing is on, W, A, S and D keys sent directly by the phone are ignored for P1, so they don't fight the slicer.
+- Keys are released when you switch modes or disconnect.
 
 ---
 
-## Settings Page
+## Presets (Pro)
 
-The **Settings** page contains global preferences persisted in `%APPDATA%\VeloPad\config.vpd`:
+Save a phone's whole Input Lab setup under a name and apply it to any phone in one click.
 
-### 1. Theme
-
-Choose **Light**, **Dark** (default), or **System** (automatically follows Windows `AppsUseLightTheme`).
-
-### 2. Keyboard & Mouse Input Method
-
-Selects the Windows mouse/keyboard injection backend (`input_backend`):
-
-- **Smart Auto (Recommended) (`auto`)**: Automatically uses the kernel-level **Interception** driver if installed on your system, and seamlessly falls back to **Win32 `SendInput`** otherwise.
-- **Standard Windows Input (SendInput) (`sendinput`)**: Injects hardware scan codes (`KEYEVENTF_SCANCODE`) and mouse events atomically via a dedicated `TIME_CRITICAL` background worker thread. Works out of the box with zero extra drivers.
-- **Hardware Driver Mode (Interception) (`interception`)**: Injects input through the signed **Interception** kernel filter driver so keyboard and mouse events carry no `LLMHF_INJECTED` synthetic flag.
-
-### 3. Discovery Display Name
-
-Customizes the computer name broadcast to phones on your Wi-Fi network (defaults to your Windows hostname).
-
-### 4. Accent Color
-
-Displays a preview pill of your current accent color and a **Change** button that opens a 16-color popup palette:
-
-| Color | Hex Code |
-|-------|----------|
-| Blue (Default) | `#007AFF` |
-| Sky | `#32ADE6` |
-| Indigo | `#5856D6` |
-| Violet | `#BF5AF2` |
-| Pink | `#FF2D55` |
-| Rose | `#FF6B9D` |
-| Red | `#FF3B30` |
-| Coral | `#FF6B35` |
-| Orange | `#FF9500` |
-| Yellow | `#FFD60A` |
-| Amber | `#FFB800` |
-| Green | `#34C759` |
-| Mint | `#30D158` |
-| Teal | `#00C7BE` |
-| Purple | `#6E40C9` |
-| Lime | `#A8E35A` |
-
-### 5. Application Updates (`Check for Updates`)
-
-Queries the official `Blue-Wave-Horizon/velopad-releases` GitHub repository for newer versions and offers one-click download and installation of the latest setup executable. (VeloPad also checks silently once on startup.)
+- **Save as preset** asks for a name (suggested *&lt;phone&gt; tuning*, up to 48 characters). An existing name asks *Replace it?*. A green *Saved "&lt;name&gt;"* flash confirms it.
+- **Presets** opens a menu headed *Apply to &lt;phone&gt;* with your presets in alphabetical order. Pick one to apply every setting at once. **Delete preset** removes one; phones using it keep their current settings.
+- A preset holds every Input Lab setting: controller, gyro mode and stick, the four tuning dials, tilt setup, curve, axis mapping, WASD slicing and the touch camera dials.
+- Presets are shared across phones and stored in `%APPDATA%\VeloPad\presets.vpd`.
+- Both buttons show a **PRO** tag unless the **selected phone** has VeloPad Pro.
 
 ---
 
-## System Tray
+## Settings
 
-Closing the VeloPad window minimizes it to the Windows system tray:
-- **Searching (No Phone Connected)**: Animated cascading wave chevron icon.
-- **Connected**: Brand-blue VeloPad icon with a green status dot (`"VeloPad: Connected (<Device Name>)"`).
-- **Right-Click Menu**: **Show VeloPad**, **Hide to Tray**, and **Quit**. Double-clicking the tray icon toggles the main window.
+*Global preferences for this PC.* Every change is saved immediately (the header flashes **Saved**). The section list on the left jumps to **Appearance**, **Input injection**, **Network** and **Updates & about**.
+
+### Appearance
+
+| Setting                 | Options                              | Default          |
+| ----------------------- | ------------------------------------ | ---------------- |
+| **Theme**         | Light · Dark · System              | Dark             |
+| **Accent colour** | 9 shown, **More…** for all 16 | Blue `#007AFF` |
+
+- **System** follows Windows' app theme when VeloPad starts or when you pick it.
+- The accent colours are Blue `#007AFF`, Sky `#32ADE6`, Indigo `#5856D6`, Violet `#BF5AF2`, Pink `#FF2D55`, Rose `#FF6B9D`, Red `#FF3B30`, Coral `#FF6B35`, Orange `#FF9500`, Yellow `#FFD60A`, Amber `#FFB800`, Green `#34C759`, Mint `#30D158`, Teal `#00C7BE`, Purple `#6E40C9` and Lime `#A8E35A`, the same set as the phone. The window icon follows your accent; the tray icon stays VeloPad blue.
+
+### Keyboard & mouse injection
+
+Affects keyboard and mouse output only (MnK layouts, Rate → Mouse gyro and touchpad mouse). It doesn't affect the virtual controller.
+
+| Method                                        | What it does                                                                                                                                             |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Smart Auto** (recommended, default)   | Uses the Interception driver when it's installed, otherwise SendInput                                                                                    |
+| **Standard Windows input · SendInput** | No drivers needed. The safest choice with anti-cheat                                                                                                     |
+| **Hardware driver · Interception**     | Input enters Windows like a real keyboard and mouse, so games that block software input accept it. Falls back to SendInput if the driver isn't installed |
+
+- The method is chosen **when VeloPad starts**. After changing it, you'll see *Restart VeloPad to switch input method.*
+- **Driver status** shows *Driver active*, *Driver installed* (restart Windows to finish) or *Driver not installed*.
+- **How to install…** (shown when it's missing): **Open driver folder**, open a Command Prompt **as Administrator** in that folder, run `install-interception.exe /install`, restart Windows, then reopen VeloPad. To remove it, run `install-interception.exe /uninstall` the same way and restart. Interception is a signed, open-source (LGPL) driver; VeloPad never reads or blocks your real keyboard and mouse through it.
+
+> **Anti-cheat heads-up:** some games' anti-cheat flags the Interception driver and won't launch while it's **installed**, even when VeloPad isn't running. If a game refuses to start, uninstall the driver or use SendInput. Gamepad mode uses the ViGEmBus driver and isn't affected by any of this.
+
+### Network & discovery
+
+- **Discovery display name:** what phones see in their list of PCs. Leave it empty to use the computer name. It's saved when you leave the field and updates the sidebar.
+- **Ports:** *Phones can't find this PC? Allow VeloPad through your firewall. It uses UDP 4000, 4002 and TCP 4001–4003.*
+
+### Updates & about
+
+- Shows **VeloPad &lt;version&gt;** and the update status: *Not checked*, *Checking…*, *Up to date*, *Update available · &lt;version&gt;* or *Couldn't check*, with *Checked N min ago · See what's new*.
+- **Check for updates** checks now; VeloPad also checks quietly every time it starts. **Release notes** opens the releases page.
+- **Update available** pop-up: shows *current → new*, what's new in the update, and **Skip this version**, **Later** or **Download update** (opens the release page; run the new installer to update). Your settings and profiles carry over.
+- **What's new in VeloPad** opens automatically the first time a new version starts, or from the Dashboard button. It shows notes for recent releases from GitHub, or the notes bundled with the app when you're offline (*Offline · showing bundled notes*). **All releases** opens the releases page; **Got it** closes it.
 
 ---
 
-## Signal Processing Pipeline — Technical Reference
+## Free vs Pro
 
-### Variables
+Pro is bought on the **phone** (Monthly with a **14-day free trial**, Annual, or Lifetime through Google Play). The PC reads each phone's licence when it connects and every 30 seconds after, so an upgrade shows up on the PC within about 30 seconds.
 
-| Symbol | Source | Description |
-|--------|--------|-------------|
-| `raw_x, raw_y` | Selected Yaw & Pitch axes from `gx, gy, gz` | Raw gyro angular velocity in `rad/s` |
-| `dz` | Deadzone dial (`0.00–0.20`) | Deadzone threshold |
-| `sm_val` | Smoothing dial (`0.00–1.00`) | Filter strength; $\alpha = \max(0.05, 1.0 - \text{sm\_val} \times 0.95)$ |
-| `sens` | Sensitivity dial (`0–100`) | Base sensitivity multiplier |
-| `resp` | Response dial (`0.50–3.00`) | Final output multiplier |
-| `LUT[0..999]` | Response Curve editor | 1,000-point cubic Bezier lookup table |
+**On the PC**
 
-### Modes 0 & 1 (`Rate -> Stick`, 2D Radial Mapping)
+| Feature                                                                                                                         | Free | Pro |
+| ------------------------------------------------------------------------------------------------------------------------------- | ---- | --- |
+| All Input Lab tuning: every dial, both controllers, all gyro modes, tilt, curve, axis mapping, WASD slicing, touch camera dials | ✓   | ✓  |
+| Create, edit, duplicate and delete layouts on the PC                                                                            | ✓   | ✓  |
+| **Input Lab presets** (checked on the selected phone)                                                                     |      | ✓  |
+| **Sync from phone**, **Upload to phone**, **Save & upload** (checked on P1)                                   |      | ✓  |
+| Editor: **add combo keys**, **Auto-sprint lock**, **Touchpad → Right stick**                                 |      | ✓  |
+
+**On the phone** (for reference): USB play, 250 and 500 Hz polling, more than 10 layouts, combos, auto-sprint and touchpad to right stick in play are Pro. See the Android manual.
+
+The Dashboard's Pro pill shows which phones have Pro.
+
+---
+
+## Files VeloPad Keeps
+
+Everything is in `%APPDATA%\VeloPad\` (paste that into File Explorer's address bar).
+
+| File                   | Contents                                                                                       |
+| ---------------------- | ---------------------------------------------------------------------------------------------- |
+| `config.vpd`         | Theme, accent, window size, input method, discovery name, and every phone's Input Lab settings |
+| `presets.vpd`        | Input Lab presets (Pro)                                                                        |
+| `profiles\*.vpd`     | Your layouts, one file each                                                                    |
+| `release_notes.json` | Release notes saved for offline viewing                                                        |
+
+These survive updates and uninstalling. Back up the folder to keep your setup; delete it to start fresh.
+
+---
+
+## Signal Processing Reference
+
+How gyro becomes output, per packet. Timing is normalised to 8 ms packets using the phone's own timestamps.
+
+### Shared first steps
 
 ```
-1.  val_x, val_y = select_axes(gx, gy, gz) with optional axis inversion
-2.  if |val| < dz:
-        val = 0
-        if mode == 1 (Snap): smooth_buf = 0
-3.  smooth_buf += (val - smooth_buf) * alpha
-4.  mag = hypot(smooth_buf_x, smooth_buf_y)
-5.  norm = min(mag / 1.0, 1.0)                     # max_speed = 1.0 rad/s for stick modes
-6.  curved_mag = LUT[int(norm * 999)]
-7.  dir_x, dir_y = smooth_buf_x / mag, smooth_buf_y / mag
-8.  scale = 32767.0 * (sens / 100.0) * resp
-9.  gyro_stick_x = dir_x * curved_mag * scale
-    gyro_stick_y = dir_y * curved_mag * scale
-10. Route (gyro_stick_x, gyro_stick_y) to Gyro Target Stick (Right or Left Stick)
-    + optional Pro Touchpad-to-Right-Stick velocity (mdx * 3000 with 0.65/0.30 momentum decay)
-11. Clamp final stick axes to [-32768, 32767]
+1. yaw, pitch = pick axes from (gx, gy, gz) per Axis mapping, negate if inverted
+2. alpha      = max(0.05, 1 - 0.95 * smoothing)
+3. dt_scale   = (time since last packet) / 8 ms
 ```
 
-### Mode 2 (`Rate -> Mouse`) & MnK Gyro
+### Modes 0 and 1: Rate → Stick
 
 ```
-1-3. Same deadzone and EMA smoothing as Mode 0
-4.   norm = min(|smooth_buf| / 4.0, 1.0)           # max_speed = 4.0 rad/s for mouse mode
-5.   curved = sign(smooth_buf) * LUT[int(norm * 999)] * 4.0
-6.   dt_scale = dt_ms / 8.0  (if 0 < dt_ms < 50 else 1.0)
-7.   pixel_delta = curved * (sens / 2.0) * resp * dt_scale
-8.   mouse_acc += pixel_delta + touchpad_delta
-9.   move_px = int(mouse_acc);  mouse_acc -= move_px
-10.  Dispatch atomic mouse move (move_px_x, move_px_y) via Interception or Win32 SendInput
+1. if |axis| < deadzone: axis = 0
+       Snap (mode 1) also sets that axis's smoothed value to 0
+2. smooth += (axis - smooth) * alpha
+3. mag     = hypot(smooth_yaw, smooth_pitch)
+4. curved  = curve(min(mag / 1.0 rad/s, 1))
+5. stick   = direction * curved * 32767 * sensitivity/100 * response
+6. target stick = clamp(phone stick + stick)
 ```
 
-### Mode 3 (`Angle -> Stick`, 2-Axis Pure Gyro Tilt)
+### Mode 2 and MnK: Rate → Mouse
 
 ```
-1.  if stick_or_touchpad_touched and recenter_on_stick_touch:
-        gyro_angle_x = 0; gyro_angle_y = 0
-2.  if hypot(val_x, val_y) < 0.015:                # velocity noise floor
-        val_x = 0; val_y = 0
-3.  gyro_angle_x = clamp(gyro_angle_x + val_x * (dt / max_tilt_rad), -1.5, 1.5)
-    gyro_angle_y = clamp(gyro_angle_y - val_y * (dt / max_tilt_rad), -1.5, 1.5)
-4.  if still for > 0.4s and recenter_speed > 0:
-        decay = max(0.0, 1.0 - recenter_speed * dt)
-        gyro_angle_x *= decay; gyro_angle_y *= decay
-5.  rad_mag = min(hypot(gyro_angle_x, gyro_angle_y), 1.0)
-6.  rescaled = 0 if rad_mag < dz else (rad_mag - dz) / (1.0 - dz)
-7.  curved_mag = LUT[int(clamp(rescaled, 0, 1) * 999)]
-8.  returning = curved_mag < hypot(smooth_tilt_x, smooth_tilt_y)
-9.  eff_alpha = min(alpha * 1.5, 1.0) if returning else alpha
-10. smooth_tilt += (target_tilt - smooth_tilt) * eff_alpha
-11. Apply tilt_axes filter ("both", "horizontal", or "vertical")
-12. Output clamp(int(smooth_tilt * 32767), -32768, 32767) to Gyro Target Stick
+1-2. Same deadzone and smoothing (no snap)
+3.   curved_axis = sign * curve(min(|smooth| / 4.0 rad/s, 1)) * 4.0
+4.   pixels      = curved_axis * sensitivity * 0.5 * response * dt_scale
+5.   carry fractions of a pixel to the next packet; add touchpad mouse movement
+6.   move the mouse (SendInput or Interception)
+```
+
+### Mode 3: Angle → Stick (Tilt)
+
+```
+1. re-centre if the gyro-side stick is touched (option on), or on Set neutral level
+2. ignore rotation under 0.015 rad/s
+3. angle += rate * dt / max_tilt                     (normalised, clamped)
+4. after 0.4 s still: angle eases to 0 at recenter_speed (if > 0)
+5. mag = min(hypot(angle), 1);  below deadzone -> 0, else rescale (mag - dz) / (1 - dz)
+6. curved = curve(mag)
+7. smooth toward curved with alpha (1.5x alpha when returning toward centre)
+8. apply Tilt axes, output smooth * 32767 to the target stick
+```
+
+### DualShock 4
+
+```
+pitch_out = curve(smooth_pitch) * sensitivity/90 * response
+yaw_out   = curve(smooth_yaw)   * sensitivity/90 * response
+roll      = raw phone gz;  accelerometer = raw phone values
+written to the DS4 motion report (916.73 units per rad/s, 8192 per g)
+```
+
+### Touchpad → right stick
+
+```
+speed  = swipe delta * touch_sens   (vertical also * vertical_scale), per 8 ms
+norm   = min(speed / 14 px, 1)
+curved = norm ^ curve_gamma
+out    = anti_deadzone + (1 - anti_deadzone) * curved   (soft knee near zero)
+lift finger -> 0 instantly; still finger -> hold briefly, then fade
+right stick += out
 ```
 
 ---
 
-## Recommended Settings by Game Genre
+## Recommended Settings by Genre
 
-### First-Person Shooters (Gamepad — Call of Duty, Halo, Apex Legends, Fortnite)
+Starting points; tune from here.
 
-| Parameter | Recommended | Notes |
-|-----------|-------------|-------|
-| Controller Target | Xbox 360 or DualShock 4 | Use DS4 if feeding native gyro into Steam Input |
-| Gyro Target Stick | Right Stick (Aim / Camera) | |
-| Gyro Mode | 0 (Decay) or 1 (Snap) | Decay for aim-assist tracking; Snap for flick shots |
-| Smoothing | `0.55–0.70` | Default `0.68` balances stability and speed |
-| Deadzone | `0.06–0.12` | Lower if your phone sensor is clean |
-| Response | `1.00x` | |
-| Sensitivity | `70–90` | |
-| Curve P1 / P2 | `(0.25, 0.08)` / `(0.75, 0.92)` | Precision low-end, fast flicks |
+### Shooters with a controller (Call of Duty, Halo, Apex, Fortnite)
 
-### First-Person Shooters (Mouse + Keyboard — CS2, Valorant, Overwatch 2, Apex MnK)
+| Setting                | Try                                           | Notes                                          |
+| ---------------------- | --------------------------------------------- | ---------------------------------------------- |
+| Controller             | Xbox 360, or DualShock 4 for Steam Input gyro |                                                |
+| Gyro target stick      | Right · Aim                                  |                                                |
+| Gyro mode              | 0 Decay or 1 Snap                             | Decay for aim assist tracking, Snap for flicks |
+| Smoothing              | 0.55–0.70                                    |                                                |
+| Deadzone               | 0.06–0.12                                    | Lower if your phone's gyro is clean            |
+| Sensitivity / Response | 70–90 / 1.00×                               |                                                |
+| Curve P1 / P2          | (0.25, 0.08) / (0.75, 0.92)                   | Steady low end, fast flicks                    |
+| Phone                  | Gyro toggle in scope mode on your aim trigger | Gyro only while aiming                         |
 
-| Parameter | Recommended | Notes |
-|-----------|-------------|-------|
-| Input Mode (Phone) | MnK Mode | Automatically activates Mouse pipeline |
-| Gyro Mode | 2 (Rate -> Mouse) | |
-| Smoothing | `0.50–0.68` | Lower (`0.35–0.50`) for raw twitch aim |
-| Deadzone | `0.05–0.10` | Tight threshold for pixel-level micro-aim |
-| Sensitivity | `40–65` | Start around `50` and tune to match in-game DPI |
-| Analog WASD Macro-Slicing | Enabled (if Left Stick used) | `180 ms` cycle window, `5°` deadband |
+### Touch-aim camera on a controller layout
 
-### Racing Games (Forza Horizon, Assetto Corsa, F1, Need for Speed)
+| Setting        | Try                                                       | Notes                              |
+| -------------- | --------------------------------------------------------- | ---------------------------------- |
+| Phone          | Touchpad with Output **Right stick** (Pro)          |                                    |
+| Touch sens     | 1.0–1.6×                                                |                                    |
+| Anti-deadzone  | Just enough that tiny swipes move the camera (0.12–0.22) | Depends on the game's own deadzone |
+| Vertical scale | 1.2–1.5×                                                |                                    |
+| Curve gamma    | 1.4–2.0                                                  | Higher for snipers and precise aim |
 
-| Parameter | Recommended | Notes |
-|-----------|-------------|-------|
-| Controller Target | Xbox 360 | |
-| Gyro Target Stick | Left Stick (Movement / Steering) | Maps tilt directly to steering axis |
-| Gyro Mode | 3 (Angle -> Stick / Tilt) | Pure gyro integration (no lateral G-force kicks) |
-| Orientation | Landscape | Hold phone sideways like a steering wheel |
-| Tilt Axes | Horizontal Only (Steer X) | Prevents forward/back tilt from affecting Y-axis |
-| Deadzone | `0.02–0.05` | Immediate steering response around center |
-| Smoothing | `0.65–0.75` | Asymmetric return keeps counter-steering snappy |
-| Recenter Speed | `0.0` (Hold) or `1.5–2.5x` | `0.0` holds wheel angle; `1.5+` adds centering spring |
-| Max Tilt ° | `30°–45°` (Arcade) / `60°+` (Sim) | |
-| Curve P1 / P2 | `(0.25, 0.25)` / `(0.75, 0.75)` | Linear response for predictable cornering |
+### Shooters with mouse and keyboard (CS2, Valorant, Overwatch 2, Apex)
+
+| Setting             | Try                               | Notes                                            |
+| ------------------- | --------------------------------- | ------------------------------------------------ |
+| Phone               | **Mouse & keyboard** layout | Gyro drives the mouse automatically              |
+| Smoothing           | 0.50–0.68                        | 0.35–0.50 for raw twitch aim                    |
+| Deadzone            | 0.05–0.10                        |                                                  |
+| Sensitivity         | 40–65                            | Start near 50 and match your in-game sensitivity |
+| Analog WASD slicing | On, with a Left-stick joystick    | 180 ms, 5°                                      |
+| Input method        | SendInput for anti-cheat games    | Interception only where it's allowed             |
+
+### Racing (Forza Horizon, Assetto Corsa, F1)
+
+| Setting           | Try                                                                              | Notes                                                    |
+| ----------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| Controller        | Xbox 360                                                                         |                                                          |
+| Gyro target stick | Left · Steer                                                                    |                                                          |
+| Gyro mode         | 3 Tilt                                                                           |                                                          |
+| Tilt axes         | Horizontal Only (Steer X)                                                        | Forward and back tilt won't touch the throttle or camera |
+| Deadzone          | 0.02–0.05                                                                       | Quick response around centre                             |
+| Smoothing         | 0.65–0.75                                                                       |                                                          |
+| Recenter speed    | 0.0 (hold) or 1.5–2.5× (self-centring)                                         |                                                          |
+| Max tilt          | 30–45° arcade, 60°+ sim                                                       |                                                          |
+| Curve P1 / P2     | (0.25, 0.25) / (0.75, 0.75)                                                      | Straight line, predictable steering                      |
+| Phone             | Long-press the gyro toggle for **ROLL** if you hold the phone like a wheel |                                                          |
+
+---
+
+## Troubleshooting
+
+| Problem                                         | Try this                                                                                                                                                                                                   |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The phone doesn't see the PC                    | Same network? Is Windows set to **Private** for this network? Start VeloPad as administrator once so it can add its firewall rules. Type the **LAN address** from the Dashboard into the phone |
+| USB phone not found                             | Is `adb` installed where VeloPad looks? Is USB debugging on and allowed? Try a data cable and another port. Close other tools that use ADB exclusively                                                   |
+| Latency says *Needs VeloPad 3.0 on the phone* | Update the phone app; older versions don't measure ping                                                                                                                                                    |
+| Ping is red or spiky                            | Use 5 GHz Wi-Fi near the router, avoid busy hotspots, or use USB (Pro)                                                                                                                                     |
+| Game doesn't see a controller                   | Check the phone layout is **Gamepad**, not MnK. Reinstall the ViGEmBus driver with the VeloPad installer                                                                                             |
+| Keys or clicks don't register in a game         | Run VeloPad as administrator (it asks by default). Try the other input method. Keys come from **P1** only                                                                                            |
+| Mouse buttons missing in the editor             | Set the layout's **Profile mode** to Mouse & keyboard                                                                                                                                                |
+| Arrow Up/Down press F11/F12                     | Re-pick the arrow key in the layout and use VeloPad 3.0 on the phone                                                                                                                                       |
+| Gyro drifts when still                          | Raise **Deadzone** a little, or in Tilt mode click **Set neutral level**                                                                                                                       |
+| Game won't start after installing Interception  | Uninstall the Interception driver (see Settings) and use SendInput                                                                                                                                         |
+| My tuning is different over USB and Wi-Fi       | Settings are kept per connection type. Save a preset on one and apply it on the other (Pro)                                                                                                                |
+| Two copies of VeloPad                           | Starting VeloPad again replaces the running copy; quit from the tray to close it fully                                                                                                                     |
